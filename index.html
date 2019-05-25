@@ -26,7 +26,7 @@
               </div>
 
               <h2>Train Schedule <span class="badge badge-secondary"></span></h2>
-              <table class="table">
+              <table class="table" id="table">
                     <thead>
                       <tr>
                         <th scope="col"> Train Name </th>
@@ -37,18 +37,6 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <th scope="row"></th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <th scope="row"></th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
                       <tr>
                         <th scope="row"></th>
                         <td></td>
@@ -116,7 +104,33 @@
   };
   database.ref().push(newTrain);
 
-  })
+  
+
+  database.ref().on("child_added", function(childSnapshot) {
+  console.log(childSnapshot.val());
+
+ 
+  var trainName = childSnapshot.val().name;
+  var destination = childSnapshot.val().destination;
+  var fristTrain = childSnapshot.val().fristTrain;
+  var frequency = childSnapshot.val().frequency;
+
+
+  
+ 
+  var newRow = $("<tr>").append(
+    $("<td>").text(trainName),
+    $("<td>").text(destination),
+    $("<td>").text(firstTrain),
+    $("<td>").text(frequency),
+  );
+
+  // Append the new row to the table
+  $("#table > tbody").append(newRow);
+});
+
+})
+
 </script>
     
 </body>
