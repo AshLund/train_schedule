@@ -69,16 +69,12 @@
                           <input type="text" class="form-control" id="destinationInput" placeholder="Destination">
                         </div>
                         <div class="form-group">
-                                <label for="frequency">Frequency (min)</label>
-                                <input type="text" class="form-control" id="frequencyInput" placeholder="Frequency">
-                              </div>
-                        <div class="form-group">
-                        <label for="NextArrival">Next Arrival</label>
-                        <input type="text" class="form-control" id="nextArrivalInput" placeholder="Next Arrival">
+                        <label for="firstTrain">First Train Time (HH:mm-military time)</label>
+                        <input type="text" class="form-control" id="firstTrainTimeInput" placeholder="Next Arrival">
                         </div>
                         <div class="form-group">
-                            <label for="MinutesAway">Minutes Away</label>
-                            <input type="text" class="form-control" id="minutesAwayInput" placeholder="Minutes Away">
+                            <label for="frequency">Frequency (min) </label>
+                            <input type="text" class="form-control" id="frequencyInput" placeholder="Minutes Away">
                             </div>
 
                         <button type="submit" class="btn btn-primary" id="submit">Submit</button>
@@ -106,11 +102,19 @@
 
   var trainName=$("#trainNameInput").val().trim();
   var destination=$("#destinationInput").val().trim();
+  var firstTrain=$("#firstTrainTimeInput").val().trim();
   var frequency=$("#frequencyInput").val().trim();
-  var newArrival=$("#newArrivalInput").val().trim();
-  var minutesAway=$("minutesAwayInput").val().trim();
+
 
   console.log(trainName)
+
+  var newTrain = {
+    name: trainName,
+    destination: destination,
+    fisrtTrain: firstTrain,
+    frequency: frequency,
+  };
+  database.ref().push(newTrain);
 
   })
 </script>
