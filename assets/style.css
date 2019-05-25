@@ -1,0 +1,21 @@
+.jumbotron {
+    background-color: #38ACEF;
+    color: white;
+    text-align: center;
+}
+
+.display-4 {
+    font-weight: bold;
+}
+
+.lead {
+    font-weight: bold;
+}
+
+hr {
+    background-color:white;
+}
+
+.alert alert-dark {
+    background-color: #38ACEF;
+}
