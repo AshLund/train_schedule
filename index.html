@@ -9,6 +9,7 @@
     <!-- boostrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
 
     <!-- firebase -->
  
@@ -23,7 +24,11 @@
                 <h1 class="display-4">Train Schedule </h1>
                 <p class="lead"> Choo Choo </p>
                 <hr class="my-4">
+                <img src="assets/images/train tracks.png">
+            
               </div>
+
+             
 
               <h2>Train Schedule <span class="badge badge-secondary"></span></h2>
               <table class="table" id="table">
@@ -58,11 +63,11 @@
                         </div>
                         <div class="form-group">
                         <label for="firstTrain">First Train Time (HH:mm-military time)</label>
-                        <input type="text" class="form-control" id="firstTrainTimeInput" placeholder="Next Arrival">
+                        <input type="text" class="form-control" id="firstTrainTimeInput" placeholder="First Train Time">
                         </div>
                         <div class="form-group">
                             <label for="frequency">Frequency (min) </label>
-                            <input type="text" class="form-control" id="frequencyInput" placeholder="Minutes Away">
+                            <input type="text" class="form-control" id="frequencyInput" placeholder="Frequency">
                             </div>
 
                         <button type="submit" class="btn btn-primary" id="submit">Submit</button>
@@ -104,6 +109,32 @@
   };
   database.ref().push(newTrain);
 
+//puts user input for time into HH:mm
+var inputFormat = "HH:mm"
+var convertedDate = moment(firstTrain, inputFormat);
+console.log(convertedDate.format("HH:mm"));
+//converted date is first train
+
+
+var trainFrequency= frequency;
+
+//current time in HH:mm format
+var currentTime = moment().format("HH:mm");
+console.log(currentTime)
+
+
+var diffTime = moment().diff(moment(convertedDate), "minutes");
+console.log(diffTime)
+
+var trainRemainder = diffTime % trainFrequency;
+console.log(trainRemainder)
+
+var minutesTillTrain = trainFrequency - trainRemainder;
+console.log(minutesTillTrain)
+
+var nextTrain = moment().add(minutesTillTrain, "minutes");
+var nextTrainDom=moment(nextTrain).format("hh:mm")
+    console.log(nextTrainDom)
   
 
   database.ref().on("child_added", function(childSnapshot) {
@@ -112,7 +143,6 @@
  
   var trainName = childSnapshot.val().name;
   var destination = childSnapshot.val().destination;
-  var fristTrain = childSnapshot.val().fristTrain;
   var frequency = childSnapshot.val().frequency;
 
 
@@ -121,8 +151,10 @@
   var newRow = $("<tr>").append(
     $("<td>").text(trainName),
     $("<td>").text(destination),
-    $("<td>").text(firstTrain),
     $("<td>").text(frequency),
+    $("<td>").text(nextTrainDom),
+    $("<td>").text(minutesTillTrain),
+  
   );
 
   // Append the new row to the table
