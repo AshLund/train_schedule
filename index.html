@@ -24,7 +24,7 @@
                 <h1 class="display-4">Train Schedule </h1>
                 <p class="lead"> Choo Choo </p>
                 <hr class="my-4">
-                <img src="assets/images/train tracks.png">
+                <!-- <img src="assets/images/train tracks.png"> -->
             
               </div>
 
@@ -107,7 +107,11 @@
     fisrtTrain: firstTrain,
     frequency: frequency,
   };
+
+
   database.ref().push(newTrain);
+
+
 
 //puts user input for time into HH:mm
 var inputFormat = "HH:mm"
@@ -135,7 +139,7 @@ console.log(minutesTillTrain)
 var nextTrain = moment().add(minutesTillTrain, "minutes");
 var nextTrainDom=moment(nextTrain).format("hh:mm")
     console.log(nextTrainDom)
-  
+
 
   database.ref().on("child_added", function(childSnapshot) {
   console.log(childSnapshot.val());
@@ -144,7 +148,10 @@ var nextTrainDom=moment(nextTrain).format("hh:mm")
   var trainName = childSnapshot.val().name;
   var destination = childSnapshot.val().destination;
   var frequency = childSnapshot.val().frequency;
+  var firstTrain = childSnapshot.val().firstTrain;
 
+
+});
 
   
  
@@ -159,7 +166,7 @@ var nextTrainDom=moment(nextTrain).format("hh:mm")
 
   // Append the new row to the table
   $("#table > tbody").append(newRow);
-});
+
 
 })
 
