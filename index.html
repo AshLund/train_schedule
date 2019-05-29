@@ -24,7 +24,7 @@
                 <h1 class="display-4">Train Schedule </h1>
                 <p class="lead"> Choo Choo </p>
                 <hr class="my-4">
-                <!-- <img src="assets/images/train tracks.png"> -->
+                <img src="assets/images/train tracks.png" height="50px">
             
               </div>
 
@@ -52,9 +52,9 @@
                   </table>
 
                   <h2> Add Train <span class="badge badge-secondary"></span></h2>
-                  <form>
+                  <form id="input">
                         <div class="form-group">
-                          <label for="trainName">Train Name address</label>
+                          <label for="trainName">Train Name</label>
                           <input type="text" class="form-control" id="trainNameInput" aria-describedby="nameHelp" placeholder="Enter Train Name">
                         </div>
                         <div class="form-group">
@@ -171,6 +171,10 @@ var nextTrainDom=moment(nextTrain).format("hh:mm")
 })
 
 </script>
+
+<br>
+
+<br>
     
 </body>
 </html>

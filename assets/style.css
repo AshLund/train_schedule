@@ -2,6 +2,7 @@
     background-color: #38ACEF;
     color: white;
     text-align: center;
+    padding-bottom: 1rem;
 }
 
 .display-4 {
@@ -16,3 +17,16 @@ hr {
     background-color:white;
 }
 
+h2 {
+    background-color: #38acef;
+    color: white;
+    padding-left: 10px;
+}
+
+.form-group {
+    padding-left: 10px;
+}
+
+.btn-primary {
+    margin-left: 10px;
+}
