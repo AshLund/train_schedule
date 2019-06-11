@@ -26,7 +26,7 @@
   var newTrain = {
     name: trainName,
     destination: destination,
-    fisrtTrain: firstTrain,
+    firstTrain: firstTrain,
     frequency: frequency,
   };
 
