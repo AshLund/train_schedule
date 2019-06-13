@@ -21,6 +21,9 @@
   var frequency=$("#frequencyInput").val().trim();
 
 
+
+  
+
   console.log(trainName)
 
   var newTrain = {
@@ -31,14 +34,28 @@
   };
 
 
+
   database.ref().push(newTrain);
 
 
 
 //puts user input for time into HH:mm
-var inputFormat = "HH:mm"
-var convertedDate = moment(firstTrain, inputFormat);
-console.log(convertedDate.format("HH:mm"));
+
+
+  })
+
+  
+  database.ref().on("child_added", function(childSnapshot) {
+  console.log(childSnapshot.val());
+
+  var trainName = childSnapshot.val().name;
+  var destination = childSnapshot.val().destination;
+  var frequency = childSnapshot.val().frequency;
+  var firstTrain = childSnapshot.val().firstTrain;
+
+
+  var inputFormat = "HH:mm"
+  var convertedDate = moment(firstTrain, inputFormat)
 //converted date is first train
 
 
@@ -50,7 +67,7 @@ console.log(currentTime)
 
 
 var diffTime = moment().diff(moment(convertedDate), "minutes");
-console.log(diffTime)
+console.log( "diff time:", diffTime)
 
 var trainRemainder = diffTime % trainFrequency;
 console.log(trainRemainder)
@@ -62,21 +79,9 @@ var nextTrain = moment().add(minutesTillTrain, "minutes");
 var nextTrainDom=moment(nextTrain).format("hh:mm")
     console.log(nextTrainDom)
 
-
-  database.ref().on("child_added", function(childSnapshot) {
-  console.log(childSnapshot.val());
-
  
-  var trainName = childSnapshot.val().name;
-  var destination = childSnapshot.val().destination;
-  var frequency = childSnapshot.val().frequency;
-  var firstTrain = childSnapshot.val().firstTrain;
-
-
-});
-
   
- 
+
   var newRow = $("<tr>").append(
     $("<td>").text(trainName),
     $("<td>").text(destination),
@@ -86,8 +91,10 @@ var nextTrainDom=moment(nextTrain).format("hh:mm")
   
   );
 
+
+
   // Append the new row to the table
   $("#table > tbody").append(newRow);
 
 
-})
+});
